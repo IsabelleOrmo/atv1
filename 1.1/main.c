@@ -2,22 +2,23 @@
 #define QNTPECAS 2
 
 typedef struct {
-    int codigo, quantidade, valor, valorTotal;
+    int codigo, quantidade;
+    float valor, valorTotal;
 } peca;
 
-int calculaValor(int valor, int quantidade) {
+float calculaValor(float valor, int quantidade) {
     return valor * quantidade;
 }
 
 peca informacaoDaPeca(peca peca1) {
     printf("Informe o código da primeira peça:  ");
-    scanf("%d", peca1->codigo);
+    scanf("%d", &peca1.codigo);
 
     printf("Informe a quantidade de peças compradas:  ");
-    scanf("%d", peca1->quantidade);
+    scanf("%d", &peca1.quantidade);
 
     printf("Informe o valor unitário da peça:  ");
-    scanf("%d", peca1->valor);
+    scanf("%f", &peca1.valor);
 
     peca1.valorTotal = calculaValor(peca1.valor, peca1.quantidade);
     return peca1;
@@ -25,10 +26,16 @@ peca informacaoDaPeca(peca peca1) {
 
 int main (void) {
     peca pecas[QNTPECAS];
+    float totalVenda = 0;
 
     for (int i = 0; i < QNTPECAS; i++) {
         pecas[i] = informacaoDaPeca(pecas[i]);
     }
+
+    for (int i = 0; i < QNTPECAS; i++) {
+        totalVenda += pecas[i].valorTotal;
+    }
+    printf ("VALOR A PAGAR:  R$ %.2f", totalVenda);
 
     return 0;
 }
